@@ -49,19 +49,23 @@
             $('#mobileCode_submit').on('click', function () {
                 let result = /<|>/.test($('#mobileCode').val().trim());
                 if($('#mobileCode').val().trim() === '') {
-                    $('#message').css({ 'color': '#ff0000' }).text('請輸入手機載具').show().fadeOut(3000);
-                    $('#mobileCode').val('');
+                    showErrorMessage('請輸入手機載具');
                     return;
                 };
                 if(result) {
-                    $('#message').css({ 'color': '#ff0000' }).text('不能輸入 < 和 >').show().fadeOut(3000);
-                    $('#mobileCode').val('');
+                    showErrorMessage('不能輸入 < 和 >');
                     return;
                 };
-                // 英文都轉成大寫
+                // 將英文轉成大寫後，改變 value
+                // 如果只寫 $('#mobileCode').val().toUpperCase() 的話，submit 出去英文還是小寫 !!!
                 $('#mobileCode').val($('#mobileCode').val().toUpperCase());
                 $('#form_mobileCode').submit();
             });
+
+            function showErrorMessage(msg) {
+                $('#message').css({ 'color': '#ff0000' }).text(msg).show().fadeOut(3000);
+                $('#mobileCode').val('');
+            }
         });
     </script>
 </body>
